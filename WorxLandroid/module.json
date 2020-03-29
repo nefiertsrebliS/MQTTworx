@@ -1,0 +1,16 @@
+{
+	"id": "{AF7B7E96-1516-B0BB-E077-E26CF9FCF09A}",
+	"name": "MQTTworx",
+	"type": 3,
+	"vendor": "MQTT Worx Landroid",
+	"aliases": 
+	[
+		"Worx Landroid",
+		"MQTT Worx",
+		"MQTT Landroid"
+	],
+	"parentRequirements": ["{97475B04-67C3-A74D-C970-E9409B0EFA1D}"],
+	"childRequirements": [],
+	"implemented": ["{DBDA9DF7-5D04-F49D-370A-2B9153D00D9B}"],
+	"prefix": "WRX"
+}
