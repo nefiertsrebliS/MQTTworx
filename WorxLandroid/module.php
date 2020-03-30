@@ -27,6 +27,10 @@ class MQTTworx extends IPSModule
 			
 #		Filter setzen
 		$this->SetReceiveDataFilter('.*'.preg_quote('\"Topic\":\"').$this->ReadPropertyString("Topic").preg_quote('\"').'.*');
+
+#		Status holen
+		if($this->HasActiveParent())$this->Status();
+
     }
 
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
@@ -35,10 +39,8 @@ class MQTTworx extends IPSModule
         switch ($Message) {
             case IM_CHANGESTATUS:
 				if($SenderID == @IPS_GetInstance($this->InstanceID)['ConnectionID']){
-			        $this->SendDebug('IM_CHANGESTATUS', $Data[0], 0);
 				}
 				if($SenderID == $this->InstanceID){
-			        $this->SendDebug('IM_CHANGESTATUS', $Data[0], 0);
 				}
                 break;
         }
@@ -209,15 +211,13 @@ class MQTTworx extends IPSModule
 
     public function Command(int $value) 
 	{
-		if($value < 1)$value = 1;
-		if($value > 3)$value = 3;
-		$buffer["Topic"] = "pub";
-		$buffer["Payload"] = '{"cmd":'.$value.'}';
-		$buffer["Retain"] = 0;
-	    $data['Buffer'] = json_encode($buffer, JSON_UNESCAPED_SLASHES);
-		$data['DataID'] ='{97475B04-67C3-A74D-C970-E9409B0EFA1D}';
-	    $DataJSON = json_encode($data, JSON_UNESCAPED_SLASHES);
-		$this->SendDataToParent($DataJSON);
+		if($value <= 0){
+			$this->Status();
+		}else{
+			if($value > 3)$value = 3;
+			$msg["cmd"] = $value;
+			$this->SendData(json_encode($msg));
+		}
     }
 
     public function Start() 
@@ -236,6 +236,11 @@ class MQTTworx extends IPSModule
 	{
 		$msg["cmd"] = 3;
 		$this->SendData(json_encode($msg));
+    }
+		
+    public function Status() 
+	{
+		$this->SendData("{}");
     }
 		
     public function SetRainDelay(int $value) 
