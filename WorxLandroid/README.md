@@ -31,19 +31,24 @@
 	  </tr>
 	  <tr>
 		<td>4.</td>
-		<td><b><i>SetRainDelay($ID, $Value)</i></b></td>
-		<td>Regenverzögerung einstellen</td>
+		<td><b><i>WRX_Status($ID)</i></b></td>
+		<td>Holt den Status des Landroid</td>
 	  </tr>
 	  <tr>
 		<td>5.</td>
-		<td><b><i>SetTimeExtension($ID, $Value)</i></b></td>
-		<td>saisonale Zeitanpassung einstellen</td>
+		<td><b><i>WRX_SetRainDelay($ID, $Value)</i></b></td>
+		<td>Regenverzögerung einstellen</td>
 	  </tr>
 	  <tr>
 		<td>6.</td>
-		<td><b><i>SetSchedule($ID, $Value)</i></b></td>
-		<td>Zeitplan festlegen</td>
-		<td>Format:'[["12:00",200,1],["Startzeit",Mähdauer,Kantenschnitt],["10:30",118,0],["11:00",120,1],["11:00",120,0],["11:00",120,0],["11:00",0,0]]'</td>
+		<td><b><i>WRX_SetTimeExtension($ID, $Value)</i></b></td>
+		<td>saisonale Zeitanpassung einstellen</td>
+	  </tr>
+	  <tr>
+		<td>7.</td>
+		<td><b><i>WRX_SetSchedule($ID, $Value)</i></b></td>
+		<td>Zeitplan festlegen<br>
+			Format:'[["12:00",200,1],["Startzeit",Mähdauer,Kantenschnitt],["10:30",118,0],["11:00",120,1],["11:00",120,0],["11:00",120,0],["11:00",0,0]]'</td>
 	  </tr>
 	</table>
   </body>

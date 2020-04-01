@@ -19,6 +19,16 @@
 		<td>V1.0 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Grundversion</td>
 	  </tr>
+	  <tr>
+		<td>V1.01 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Fix: Statusabfrage nach Erstellung<br>
+			Fix: Status-Button startet Landroid</td>
+	  </tr>
+	  <tr>
+		<td>V1.02 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Neu: zusätzliche Variablen<br>
+			Fix: Error/Status-Code jetzt als Integerwert</td>
+	  </tr>
 	</table>
   </body>
 </html>

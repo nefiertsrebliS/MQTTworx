@@ -27,6 +27,10 @@ class MQTTworx extends IPSModule
 			
 #		Filter setzen
 		$this->SetReceiveDataFilter('.*'.preg_quote('\"Topic\":\"').$this->ReadPropertyString("Topic").preg_quote('\"').'.*');
+
+#		Status holen
+		if($this->HasActiveParent())$this->Status();
+
     }
 
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
@@ -35,10 +39,8 @@ class MQTTworx extends IPSModule
         switch ($Message) {
             case IM_CHANGESTATUS:
 				if($SenderID == @IPS_GetInstance($this->InstanceID)['ConnectionID']){
-			        $this->SendDebug('IM_CHANGESTATUS', $Data[0], 0);
 				}
 				if($SenderID == $this->InstanceID){
-			        $this->SendDebug('IM_CHANGESTATUS', $Data[0], 0);
 				}
                 break;
         }
@@ -83,70 +85,105 @@ class MQTTworx extends IPSModule
 						$this->RegisterVariableFloat('WRX_bt_nr', $this->Translate('Battery-Loadcycles'), '', 0);
 						SetValue($this->GetIDForIdent('WRX_bt_nr'), $Payload->dat->bt->nr);
 					}
+					if (property_exists($Payload->dat->bt, 'c')){
+						$this->RegisterVariableBoolean('WRX_bt_c', $this->Translate('Battery-Charging'), '~Switch', 0);
+						SetValue($this->GetIDForIdent('WRX_bt_c'), $Payload->dat->bt->c);
+					}
+				}
+				if (property_exists($Payload->dat, 'st')){
+					if (property_exists($Payload->dat->st, 'b')){
+						if (!IPS_VariableProfileExists('min.WRX')) {
+							IPS_CreateVariableProfile('min.WRX', 1);
+							IPS_SetVariableProfileIcon('min.WRX', 'Clock');
+							IPS_SetVariableProfileText('min.WRX', '', ' min');
+						}
+						$this->RegisterVariableInteger('WRX_st_b', $this->Translate('Mowing Time'), 'min.WRX', 0);
+						SetValue($this->GetIDForIdent('WRX_st_b'), $Payload->dat->st->b);
+					}
+					if (property_exists($Payload->dat->st, 'wt')){
+						if (!IPS_VariableProfileExists('min.WRX')) {
+							IPS_CreateVariableProfile('min.WRX', 1);
+							IPS_SetVariableProfileIcon('min.WRX', 'Clock');
+							IPS_SetVariableProfileText('min.WRX', '', ' min');
+						}
+						$this->RegisterVariableInteger('WRX_st_wt', $this->Translate('Working Time'), 'min.WRX', 0);
+						SetValue($this->GetIDForIdent('WRX_st_wt'), $Payload->dat->st->wt);
+					}
+					if (property_exists($Payload->dat->st, 'd')){
+						if (!IPS_VariableProfileExists('Distance.WRX')) {
+							IPS_CreateVariableProfile('Distance.WRX', 1);
+							IPS_SetVariableProfileIcon('Distance.WRX', 'Distance');
+							IPS_SetVariableProfileText('Distance.WRX', '', ' m');
+						}
+						$this->RegisterVariableInteger('WRX_st_d', $this->Translate('Distance'), 'Distance.WRX', 0);
+						SetValue($this->GetIDForIdent('WRX_st_d'), $Payload->dat->st->d);
+					}
 				}
 				if (property_exists($Payload->dat, 'le')){
-					$this->RegisterVariableString('WRX_Error', $this->Translate('Error'), '', 0);
-					$errors = array(0=>"NONE", 
-									1=>"TRAPPED", 
-									2=>"LIFTED", 
-									3=>"WIRE MISSING", 
-									4=>"OUTSIDE WIRE", 
-									5=>"RAINING", 
-									8=>"MOTOR BLADE FAULT", 
-									9=>"MOTOR WHEELS FAULT",
-									10=>"TRAPPED TIMEOUT FAULT",
-									11=>"UPSIDE DOWN",
-									12=>"BATTERY LOW",
-									13=>"REVERSE WIRE",
-									14=>"BATTERY CHARGE ERROR",
-									15=>"HOME FIND TIMEOUT",
-									16=>"LOCK",
-									17=>"BATTERY OVERTEMP");
-					SetValue($this->GetIDForIdent('WRX_Error'), $this->Translate($errors[(int)$Payload->dat->le]));
+					if (!IPS_VariableProfileExists('Error.WRX')) {
+						IPS_CreateVariableProfile('Error.WRX', 1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 0, $this->Translate('NONE'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 1, $this->Translate('TRAPPED'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 2, $this->Translate('LIFTED'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 3, $this->Translate('WIRE MISSING'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 4, $this->Translate('OUTSIDE WIRE'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 5, $this->Translate('RAINING'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 8, $this->Translate('MOTOR BLADE FAULT'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 9, $this->Translate('MOTOR WHEELS FAULT'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 10, $this->Translate('TRAPPED TIMEOUT FAULT'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 11, $this->Translate('UPSIDE DOWN'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 12, $this->Translate('BATTERY LOW'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 13, $this->Translate('REVERSE WIRE'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 14, $this->Translate('BATTERY CHARGE ERROR'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 15, $this->Translate('HOME FIND TIMEOUT'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 16, $this->Translate('LOCK'), "", -1);
+						IPS_SetVariableProfileAssociation("Error.WRX", 17, $this->Translate('BATTERY OVERTEMP'), "", -1);
+					};
+					$this->RegisterVariableInteger('WRX_Error', $this->Translate('Error'), 'Error.WRX', 0);
+					SetValue($this->GetIDForIdent('WRX_Error'), $Payload->dat->le);
 				}
 				if (property_exists($Payload->dat, 'ls')){
-					$this->RegisterVariableString('WRX_Status', $this->Translate('Status'), '', 0);
-					$status= array(	0=>"IDLE",
-									1=>"HOME",
-									2=>"START SEQUENCE",
-									3=>"LEAVE HOUSE",
-									4=>"FOLLOW WIRE",
-									5=>"SEARCHING HOME",
-									6=>"SEARCHING WIRE",
-									7=>"GRASS CUTTING",
-									8=>"LIFT RECOVERY",
-									9=>"TRAPPED RECOVERY",
-									10=>"BLADE BLOCKED RECOVERY",
-									11=>"DEBUG",
-									12=>"REMOTE CONTROL",
-									30=>"WIRE GOING HOME",
-									31=>"WIRE AREA TRAINING",
-									32=>"WIRE BORDER CUT",
-									33=>"WIRE AREA SEARCH",
-									34=>"PAUSE");
-					SetValue($this->GetIDForIdent('WRX_Status'), $this->Translate($status[(int)$Payload->dat->ls]));
+					if (!IPS_VariableProfileExists('Status.WRX')) {
+						IPS_CreateVariableProfile('Status.WRX', 1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 0, $this->Translate('IDLE'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 1, $this->Translate('HOME'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 2, $this->Translate('START SEQUENCE'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 3, $this->Translate('LEAVE HOUSE'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 4, $this->Translate('FOLLOW WIRE'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 5, $this->Translate('SEARCHING HOME'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 6, $this->Translate('SEARCHING WIRE'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 7, $this->Translate('GRASS CUTTING'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 8, $this->Translate('LIFT RECOVERY'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 9, $this->Translate('TRAPPED RECOVERY'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 10, $this->Translate('BLADE BLOCKED RECOVERY'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 11, $this->Translate('DEBUG'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 12, $this->Translate('REMOTE CONTROL'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 30, $this->Translate('WIRE GOING HOME'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 31, $this->Translate('WIRE AREA TRAINING'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 32, $this->Translate('WIRE BORDER CUT'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 33, $this->Translate('WIRE AREA SEARCH'), "", -1);
+						IPS_SetVariableProfileAssociation("Status.WRX", 34, $this->Translate('PAUSE'), "", -1);
+					};
+					$this->RegisterVariableInteger('WRX_Status', $this->Translate('Status'), 'Status.WRX', 0);
+					SetValue($this->GetIDForIdent('WRX_Status'), $Payload->dat->ls);
 				}
 				if (property_exists($Payload->dat, 'rsi')){
-					$this->RegisterVariableInteger('WRX_RSSI', 'RSSI', 'Intensity.dB.WRX', 0);
-					SetValue($this->GetIDForIdent('WRX_RSSI'), $Payload->dat->rsi);
-
 					if (!IPS_VariableProfileExists('Intensity.dB.WRX')) {
 						IPS_CreateVariableProfile('Intensity.dB.WRX', 1);
 						IPS_SetVariableProfileIcon('Intensity.dB.WRX', 'Intensity');
 						IPS_SetVariableProfileText('Intensity.dB.WRX', '', ' dB');
 					}
+					$this->RegisterVariableInteger('WRX_RSSI', 'RSSI', 'Intensity.dB.WRX', 0);
+					SetValue($this->GetIDForIdent('WRX_RSSI'), $Payload->dat->rsi);
 				}
 				if (property_exists($Payload->dat, 'lk')){
-					$this->RegisterVariableBoolean('WRX_Lock', $this->Translate('Lock'), '~Switch', 0);
+					$this->RegisterVariableBoolean('WRX_Lock', $this->Translate('Lock'), '~Lock', 0);
 					SetValue($this->GetIDForIdent('WRX_Lock'), $Payload->dat->lk);
 				}
 			}
 
 			if (property_exists($Payload, 'cfg')) {
 				if (property_exists($Payload->cfg, 'cmd')){
-					$this->RegisterVariableInteger('WRX_Command', $this->Translate('Command'), 'Command.WRX', 0);
-					SetValue($this->GetIDForIdent('WRX_Command'), $Payload->cfg->cmd);
-					$this->EnableAction('WRX_Command');
 					if (!IPS_VariableProfileExists('Command.WRX')) {
 						IPS_CreateVariableProfile('Command.WRX', 1);
 						IPS_SetVariableProfileIcon('Command.WRX', 'Power');
@@ -156,6 +193,9 @@ class MQTTworx extends IPSModule
 						IPS_SetVariableProfileAssociation('Command.WRX', 3, $this->Translate('go Home'), '',-1);
 						IPS_SetVariableProfileValues('Command.WRX', 0, 3, 1);
 					}
+					$this->RegisterVariableInteger('WRX_Command', $this->Translate('Command'), 'Command.WRX', 0);
+					SetValue($this->GetIDForIdent('WRX_Command'), $Payload->cfg->cmd);
+					$this->EnableAction('WRX_Command');
 				}
 				if (property_exists($Payload->cfg, 'sc')){
 					$this->RegisterVariableString('WRX_schedule', $this->Translate('Schedule'), '', 0);
@@ -167,22 +207,20 @@ class MQTTworx extends IPSModule
 						IPS_SetVariableProfileText('TimeExtension.WRX', '', '.%');
 						IPS_SetVariableProfileValues('TimeExtension.WRX', -100, 100, 10);
 					}
-
 					$this->RegisterVariableInteger('WRX_TimeExtension', $this->Translate('Time Extension'), 'TimeExtension.WRX', 0);
 					SetValue($this->GetIDForIdent('WRX_TimeExtension'), json_encode($Payload->cfg->sc->p));
 					$this->EnableAction('WRX_TimeExtension');
 				}
 				if (property_exists($Payload->cfg, 'rd')){
-					$this->RegisterVariableInteger('WRX_Raindelay', $this->Translate('Raindelay'), 'min.WRX', 0);
+					if (!IPS_VariableProfileExists('Raindelay.WRX')) {
+						IPS_CreateVariableProfile('Raindelay.WRX', 1);
+						IPS_SetVariableProfileIcon('Raindelay.WRX', 'Clock');
+						IPS_SetVariableProfileText('Raindelay.WRX', '', ' min');
+						IPS_SetVariableProfileValues('Raindelay.WRX', 0, 720, 30);
+					}
+					$this->RegisterVariableInteger('WRX_Raindelay', $this->Translate('Raindelay'), 'Raindelay.WRX', 0);
 					$this->EnableAction('WRX_Raindelay');
 					SetValue($this->GetIDForIdent('WRX_Raindelay'), $Payload->cfg->rd);
-
-					if (!IPS_VariableProfileExists('min.WRX')) {
-						IPS_CreateVariableProfile('min.WRX', 1);
-						IPS_SetVariableProfileIcon('min.WRX', 'Clock');
-						IPS_SetVariableProfileText('min.WRX', '', ' min');
-						IPS_SetVariableProfileValues('min.WRX', 0, 720, 30);
-					}
 				}
 
 			}
@@ -209,15 +247,13 @@ class MQTTworx extends IPSModule
 
     public function Command(int $value) 
 	{
-		if($value < 1)$value = 1;
-		if($value > 3)$value = 3;
-		$buffer["Topic"] = "pub";
-		$buffer["Payload"] = '{"cmd":'.$value.'}';
-		$buffer["Retain"] = 0;
-	    $data['Buffer'] = json_encode($buffer, JSON_UNESCAPED_SLASHES);
-		$data['DataID'] ='{97475B04-67C3-A74D-C970-E9409B0EFA1D}';
-	    $DataJSON = json_encode($data, JSON_UNESCAPED_SLASHES);
-		$this->SendDataToParent($DataJSON);
+		if($value <= 0){
+			$this->Status();
+		}else{
+			if($value > 3)$value = 3;
+			$msg["cmd"] = $value;
+			$this->SendData(json_encode($msg));
+		}
     }
 
     public function Start() 
@@ -236,6 +272,11 @@ class MQTTworx extends IPSModule
 	{
 		$msg["cmd"] = 3;
 		$this->SendData(json_encode($msg));
+    }
+		
+    public function Status() 
+	{
+		$this->SendData("{}");
     }
 		
     public function SetRainDelay(int $value) 
@@ -270,5 +311,4 @@ class MQTTworx extends IPSModule
 	    $DataJSON = json_encode($data, JSON_UNESCAPED_SLASHES);
 		$this->SendDataToParent($DataJSON);
     }
-
 }
