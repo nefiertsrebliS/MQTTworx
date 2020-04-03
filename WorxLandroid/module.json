@@ -1,5 +1,5 @@
 {
-	"id": "{AF7B7E96-1516-B0BB-E077-E26CF9FCF09A}",
+	"id": "{BA9FF068-7774-7ADF-764C-904F854D84F0}",
 	"name": "MQTTworx",
 	"type": 3,
 	"vendor": "MQTT Worx Landroid",
@@ -9,8 +9,9 @@
 		"MQTT Worx",
 		"MQTT Landroid"
 	],
-	"parentRequirements": ["{97475B04-67C3-A74D-C970-E9409B0EFA1D}"],
+	"parentRequirements": ["{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}"],
 	"childRequirements": [],
-	"implemented": ["{DBDA9DF7-5D04-F49D-370A-2B9153D00D9B}"],
+	"implemented": ["{7F7632D9-FA40-4F38-8DEA-C83CD4325A32}"],
 	"prefix": "WRX"
+
 }

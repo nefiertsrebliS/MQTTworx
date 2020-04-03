@@ -6,18 +6,17 @@
   </head>
 
   <body>
-	<h1>IPS-Modul zur Einbindung von Worx-Landroid-Mährobotern in IP-Symcon via Mosquitto-Mqtt-Bridge</h1>
+	<h1>IPS-Modul zur Einbindung von Worx-Landroid-Mährobotern in IP-Symcon via Landroid-Bridge</h1>
 	<h2>Grundsätzliches</h2>
-	Das Modul regelt die Kommunikation zwischen der Mosquitto-Mqtt-Bridge und IP-Symcon. Als Splitter ist der <a href="https://deinsmarthome.info/ip-symcon-module/mqttclient/">MQTT-Client von Kai Schnittcher</a> aus dem Modulstore erforderlich. Für die einwandfreie Kommunikaton der Mosquitto-Mqtt-Bridge mit der WorxCloud ist der Nutzer selbst verantwortlich.<br>
-	Hinweise, wie man die Mosquitto-Mqtt-Bridge einrichten kann, erhält man im <a href="https://www.roboter-forum.com/index.php?thread/41158-landroid-%C3%BCber-eine-mosquitto-mqtt-bridge-steuern-am-besipiel-von-openhab/">Roboter-Forum</a>.
-	Die Installation von Modulen wird <a href="https://www.symcon.de/service/dokumentation/komponenten/verwaltungskonsole/module-store/">hier</a> beschrieben.
+	Das Modul regelt die Kommunikation zwischen der <a href="https://github.com/nefiertsrebliS/landroid-bridge">Landroid-Bridge</a> und IP-Symcon.<br>
+	Die Landroid-Bridge stellt die Verbindung zur WorxCloud her. <b>Die Funktion der Landroid-Bridge kann nur sichergestellt werden, solange Worx die Cloud-Schnittstelle nicht verändert.</b>
 	<h2>Lizenz</h2>
 	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>
 	<h2>Changelog</h2>
 	<table>
 	  <tr>
 		<td>V1.0 &nbsp;&nbsp;&nbsp;&nbsp;</td>
-		<td>Grundversion</td>
+		<td>Grundversion für Mosquitto</td>
 	  </tr>
 	  <tr>
 		<td>V1.01 &nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -28,6 +27,10 @@
 		<td>V1.02 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Neu: zusätzliche Variablen<br>
 			Fix: Error/Status-Code jetzt als Integerwert</td>
+	  </tr>
+	  <tr>
+		<td>V2.0 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Neu: Anbindung über Landroid-Bridge</td>
 	  </tr>
 	</table>
   </body>
