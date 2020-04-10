@@ -29,8 +29,12 @@
 			Fix: Error/Status-Code jetzt als Integerwert</td>
 	  </tr>
 	  <tr>
-		<td>V2.0 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>V2.00 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Neu: Anbindung über Landroid-Bridge</td>
+	  </tr>
+	  <tr>
+		<td>V2.01 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Neu: Mähzone und Gierwinkel</td>
 	  </tr>
 	</table>
   </body>

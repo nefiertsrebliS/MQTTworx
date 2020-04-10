@@ -18,10 +18,6 @@ class MQTTworx extends IPSModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-
-        $this->RegisterMessage(0, IM_CHANGESTATUS);
-        $this->RegisterMessage(0, IM_CONNECT);
-
 			
 #		Filter setzen
 		$this->SetReceiveDataFilter(".*\"Topic\":\"".$this->ReadPropertyString("Topic")."/.*");
@@ -29,19 +25,6 @@ class MQTTworx extends IPSModule
 #		Status holen
 		if($this->HasActiveParent())$this->Status();
 
-    }
-
-    public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
-    {
-        $this->SendDebug(__FUNCTION__, 'SenderID: ' . $SenderID . ' MessageID:' . $Message . 'Data: ' . print_r($Data, true), 0);
-        switch ($Message) {
-            case IM_CHANGESTATUS:
-				if($SenderID == @IPS_GetInstance($this->InstanceID)['ConnectionID']){
-				}
-				if($SenderID == $this->InstanceID){
-				}
-                break;
-        }
     }
 
 	public function ReceiveData($JSONString)
@@ -84,6 +67,16 @@ class MQTTworx extends IPSModule
 					$this->RegisterVariableBoolean('WRX_bt_c', $this->Translate('Battery-Charging'), '~Switch', 0);
 					SetValue($this->GetIDForIdent('WRX_bt_c'), $Payload->dat->bt->c);
 				}
+			}
+			if (property_exists($Payload->dat, 'dmp')){
+				if (!IPS_VariableProfileExists('Angle.WRX')) {
+					IPS_CreateVariableProfile('Angle.WRX', 1);
+					IPS_SetVariableProfileIcon('Angle.WRX', 'TurnLeft');
+					IPS_SetVariableProfileText('Angle.WRX', '', ' °');
+					IPS_SetVariableProfileValues('Angle.WRX', 0, 359, 0);
+				}
+				$this->RegisterVariableInteger('WRX_dmp_2', $this->Translate('Yaw Angle'), 'Angle.WRX', 0);
+				SetValue($this->GetIDForIdent('WRX_dmp_2'), (int)$Payload->dat->dmp[2]);
 			}
 			if (property_exists($Payload->dat, 'st')){
 				if (property_exists($Payload->dat->st, 'b')){
@@ -162,6 +155,10 @@ class MQTTworx extends IPSModule
 				$this->RegisterVariableInteger('WRX_Status', $this->Translate('Status'), 'Status.WRX', 0);
 				SetValue($this->GetIDForIdent('WRX_Status'), $Payload->dat->ls);
 			}
+			if (property_exists($Payload->dat, 'lz')){
+				$this->RegisterVariableInteger('WRX_Zone', $this->Translate('Mowing Zone'), '', 0);
+				SetValue($this->GetIDForIdent('WRX_Zone'), $Payload->dat->lz);
+			}
 			if (property_exists($Payload->dat, 'rsi')){
 				if (!IPS_VariableProfileExists('Intensity.dB.WRX')) {
 					IPS_CreateVariableProfile('Intensity.dB.WRX', 1);
@@ -211,7 +208,7 @@ class MQTTworx extends IPSModule
 					IPS_CreateVariableProfile('Raindelay.WRX', 1);
 					IPS_SetVariableProfileIcon('Raindelay.WRX', 'Clock');
 					IPS_SetVariableProfileText('Raindelay.WRX', '', ' min');
-					IPS_SetVariableProfileValues('Raindelay.WRX', 0, 720, 30);
+					IPS_SetVariableProfileValues('Raindelay.WRX', 0, 1410, 30);
 				}
 				$this->RegisterVariableInteger('WRX_Raindelay', $this->Translate('Raindelay'), 'Raindelay.WRX', 0);
 				$this->EnableAction('WRX_Raindelay');
@@ -284,6 +281,8 @@ class MQTTworx extends IPSModule
     public function SetRainDelay(int $value) 
 	{
 		$value = round($value/30, 0)*30;
+		if( $value < 0) $value = 0;
+		if( $value > 1410) $value = 1410;
 		$this->sendMQTT('landroid/set/rainDelay', (string) $value);
     }
 		
