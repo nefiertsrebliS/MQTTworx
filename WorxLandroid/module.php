@@ -259,8 +259,7 @@ class MQTTworx extends IPSModule
 
     public function Start() 
 	{
-		$msg["cmd"] = 1;
-		$this->SendData(json_encode($msg));
+		$this->sendMQTT('landroid/set/start', "");
     }
 		
     public function Stop() 

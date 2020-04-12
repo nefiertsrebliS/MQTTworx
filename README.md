@@ -36,6 +36,10 @@
 		<td>V2.01 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Neu: Mähzone und Gierwinkel</td>
 	  </tr>
+	  <tr>
+		<td>V2.02 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Fix: WRX_Start() ohne Funktion</td>
+	  </tr>
 	</table>
   </body>
 </html>
