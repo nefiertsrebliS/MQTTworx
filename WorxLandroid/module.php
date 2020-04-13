@@ -259,22 +259,22 @@ class MQTTworx extends IPSModule
 
     public function Start() 
 	{
-		$this->sendMQTT('landroid/set/start', "");
+		$this->sendMQTT($this->ReadPropertyString("Topic").'/set/start', "");
     }
 		
     public function Stop() 
 	{
-		$this->sendMQTT('landroid/set/pause', "");
+		$this->sendMQTT($this->ReadPropertyString("Topic").'/set/pause', "");
     }
 		
     public function Home() 
 	{
-		$this->sendMQTT('landroid/set/stop', "");
+		$this->sendMQTT($this->ReadPropertyString("Topic").'/set/stop', "");
     }
 		
     public function Status() 
 	{
-		$this->sendMQTT('landroid/set/poll', "");
+		$this->sendMQTT($this->ReadPropertyString("Topic").'/set/poll', "");
     }
 		
     public function SetRainDelay(int $value) 
@@ -282,7 +282,7 @@ class MQTTworx extends IPSModule
 		$value = round($value/30, 0)*30;
 		if( $value < 0) $value = 0;
 		if( $value > 1410) $value = 1410;
-		$this->sendMQTT('landroid/set/rainDelay', (string) $value);
+		$this->sendMQTT($this->ReadPropertyString("Topic").'/set/rainDelay', (string) $value);
     }
 		
     public function SetTimeExtension(int $value) 
@@ -290,12 +290,12 @@ class MQTTworx extends IPSModule
 		$value = round($value, -1);
 		if($value < -100)$value = -100;
 		if($value > 100)$value = 100;
-		$this->sendMQTT('landroid/set/timeExtension', (string) $value);
+		$this->sendMQTT($this->ReadPropertyString("Topic").'/set/timeExtension', (string) $value);
     }
 		
     public function SetSchedule(string $value) 
 	{
-		$this->sendMQTT('landroid/set/schedule', (string) $value);
+		$this->sendMQTT($this->ReadPropertyString("Topic").'/set/schedule', (string) $value);
     }
 
 	protected function sendMQTT($Topic, $Payload)

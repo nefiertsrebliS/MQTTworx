@@ -40,6 +40,10 @@
 		<td>V2.02 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Fix: WRX_Start() ohne Funktion</td>
 	  </tr>
+	  <tr>
+		<td>V2.03 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Fix: Topic-Fehler bei Befehlen</td>
+	  </tr>
 	</table>
   </body>
 </html>
