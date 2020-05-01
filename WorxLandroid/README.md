@@ -8,7 +8,7 @@
   <body>
 	<h1>Worx-Landroid-Modul</h1>
 	<h2>Konfiguration</h2>
-	Als Topic ist "sub" im Modul einzutragen.
+	Als Topic ist "landroid" (bzw. dasselbe Topic wie in der Landroid-Bridge) im Modul einzutragen.
 	<h2>Funktion</h2>
 	Über das WebFront kann der Worx Landroid gestartet, gestoppt und eingestellt werden.<br>
 	Darüber hinaus gibt es einen Befehlsatz zur Ansteuerung des Worx Landroid per Skript.
