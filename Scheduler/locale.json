@@ -1,0 +1,19 @@
+{
+  "translations": {
+    "de": {
+      "Command": "Befehl",
+      "Mowing Zone": "Mähzone",
+      "Mowingzone": "Mähzone",
+	  "on": "an",
+	  "on time": "auf Zeit",
+	  "off": "aus",
+      "Party-Mode": "Party-Modus",
+      "Party-Duration": "Party-Dauer",
+      "Schedule": "Zeitplan",
+      "Time Extension": "Zeitanpassung",
+      "Raindelay": "Regenverzögerung",
+      "Share in Zone": "Anteil in Zone",
+	  "Start in Zone": "Start in Zone"
+    }
+  }
+}
