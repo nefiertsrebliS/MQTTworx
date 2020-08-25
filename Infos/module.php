@@ -139,6 +139,20 @@ class MQTTworxInfo extends IPSModule
 				$this->RegisterVariableInteger('WRX_st_d', $this->Translate('Distance'), 'Distance.WRX', 120);
 				SetValue($this->GetIDForIdent('WRX_st_d'), $Payload);
 				break;
+			case "dmp":
+				if (!IPS_VariableProfileExists('Angle.WRX')) {
+					IPS_CreateVariableProfile('Angle.WRX', 1);
+					IPS_SetVariableProfileIcon('Angle.WRX', 'TurnLeft');
+					IPS_SetVariableProfileText('Angle.WRX', '', ' °');
+					IPS_SetVariableProfileValues('Angle.WRX', 0, 359, 0);
+				}
+				$this->RegisterVariableInteger('WRX_dmp_0', $this->Translate('Gradient'), 'Angle.WRX', 160);
+				SetValue($this->GetIDForIdent('WRX_dmp_0'), round($Payload[0]));
+				$this->RegisterVariableInteger('WRX_dmp_1', $this->Translate('Inclination'), 'Angle.WRX', 161);
+				SetValue($this->GetIDForIdent('WRX_dmp_1'), round($Payload[1]));
+				$this->RegisterVariableInteger('WRX_dmp_2', $this->Translate('Direction'), 'Angle.WRX', 162);
+				SetValue($this->GetIDForIdent('WRX_dmp_2'), round($Payload[2]));
+				break;
 			case "rsi":
 				if (!IPS_VariableProfileExists('Intensity.dB.WRX')) {
 					IPS_CreateVariableProfile('Intensity.dB.WRX', 1);

@@ -56,6 +56,7 @@
 	  <tr>
 		<td>V3.01 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Neu: Kompatibilitätsmodus für ältere Modelle/Firmware</td>
+		<td>Neu: Winkel-Informationen</td>
 	  </tr>
 	</table>
   </body>
