@@ -53,6 +53,10 @@
 			- Zonen<br>
 			- Zeitplaner</td>
 	  </tr>
+	  <tr>
+		<td>V3.01 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Neu: Kompatibilitätsmodus für ältere Modelle/Firmware</td>
+	  </tr>
 	</table>
   </body>
 </html>

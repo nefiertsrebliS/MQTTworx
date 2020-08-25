@@ -63,7 +63,7 @@ class MQTTworxGateway extends IPSModule
 				}
 			}
 			if (property_exists($Payload->dat, 'dmp')){
-#				$this->sendDataToDevices('Infos', 'dmp', $Payload->dat->dmp);
+				$this->sendDataToDevices('Infos', 'dmp', $Payload->dat->dmp);
 			}
 			if (property_exists($Payload->dat, 'st')){
 				if (property_exists($Payload->dat->st, 'b')){
@@ -99,7 +99,9 @@ class MQTTworxGateway extends IPSModule
 			}
 			if (property_exists($Payload->cfg, 'sc')){
 				if (property_exists($Payload->cfg->sc, 'd') && property_exists($Payload->cfg->sc, 'dd')){
-					$this->sendDataToDevices('Scheduler', 'd', array($Payload->cfg->sc->d,  $Payload->cfg->sc->dd));
+	 				$this->sendDataToDevices('Scheduler', 'dd', array($Payload->cfg->sc->d,  $Payload->cfg->sc->dd));
+				}elseif (property_exists($Payload->cfg->sc, 'd')){
+					$this->sendDataToDevices('Scheduler', 'd', array($Payload->cfg->sc->d));
 				}
 				if (property_exists($Payload->cfg->sc, 'p')){
 					$this->sendDataToDevices('Scheduler', 'p', $Payload->cfg->sc->p);

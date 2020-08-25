@@ -94,8 +94,10 @@ class MQTTworxZones extends IPSModule
 					}
 				}
 				if($max == 0){
+#					ohne Zonen keine Zonenauswahl
 					IPS_SetHidden($this->GetIDForIdent('WRX_StartingZone'), true);
 				}else{
+#					sind Zonen definiert, so wird die Zonenauswahl sichtbar
 					IPS_SetHidden($this->GetIDForIdent('WRX_StartingZone'), false);
 					IPS_SetVariableProfileValues('StartingZone.WRX', 1, $max, 1);
 				}

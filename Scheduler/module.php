@@ -26,6 +26,9 @@ class MQTTworxScheduler extends IPSModule
 
 #		Status holen
 		if($this->HasActiveParent())$this->sendJson("{}");
+
+#		Puffer initieren
+		$this->SetBuffer("dd", "false");
     }
 
 #================================================================================================
@@ -43,7 +46,9 @@ class MQTTworxScheduler extends IPSModule
 #----------------------------------------------------------------
 
 		switch($Topic){
+			case "dd":
 			case "d":
+				$this->SetBuffer("dd", ($Topic == "dd")?"true":"false");
 				if(!@$this->GetIDForIdent("WRX_Scheduler")){
 					$id = IPS_CreateEvent(2);
 					IPS_SetParent($id, $this->InstanceID );
@@ -56,11 +61,9 @@ class MQTTworxScheduler extends IPSModule
 				}
 				$this->RegisterMessage ($this->GetIDForIdent("WRX_Scheduler"), EM_REMOVESCHEDULEGROUPPOINT);
 
-				if(json_encode($Payload[0]) <> $this->GetSchedule(1) || json_encode($Payload[1]) <> $this->GetSchedule(2)){
-					$this->ClearIPSSchedule();
-					$this->SetIPSSchedule(1, json_encode($Payload[0]));
-					$this->SetIPSSchedule(2, json_encode($Payload[1]));
-				} 
+				$this->ClearIPSSchedule();
+				$this->SetIPSSchedule(1, json_encode($Payload[0]));
+				if($Topic == "dd")$this->SetIPSSchedule(2, json_encode($Payload[1]));
 				break;
 
 			case "p":
@@ -147,7 +150,12 @@ class MQTTworxScheduler extends IPSModule
 						IPS_SetEventActive($this->GetIDForIdent("WRX_Scheduler"), true);
 						return;
 					}
-					$this->sendJson('{ "sc": { "d": '.$this->GetSchedule(1).',  "dd": '.$this->GetSchedule(2).' } }');
+					if($this->GetBuffer("dd") == "true"){
+						$this->sendJson('{ "sc": { "d": '.$this->GetSchedule(1).',  "dd": '.$this->GetSchedule(2).' } }');
+					}else{
+						$this->sendJson('{ "sc": { "d": '.$this->GetSchedule(1).'} }');
+					}
+
 				}
 		        break;
 		    case VM_UPDATE:
@@ -155,9 +163,11 @@ class MQTTworxScheduler extends IPSModule
 					case $this->GetIDforIdent('WRX_Partymode'):
 						if($Data[1]){
 							if($Data[0] == 0){
+#								Wenn der Party-Zeitmodus an ist, erscheint die Zeiteinstellung
 								IPS_SetHidden($this->GetIDForIdent('WRX_Partyduration'), false);
 								if($this->GetValue('WRX_Partyduration')== 0) $this->SetPartyDuration(60);
 							}else{
+#								Wenn der Party-Zeitmodus aus ist, verschwindet die Zeiteinstellung
 								IPS_SetHidden($this->GetIDForIdent('WRX_Partyduration'), true);
 								if($this->GetValue('WRX_Partyduration') <> 0) $this->SetPartyDuration(0);
 							}
@@ -293,6 +303,7 @@ class MQTTworxScheduler extends IPSModule
                 $Pointer = 1;
                 break;
             case 2:
+				if($this->GetBuffer("dd") == "false")return(false);
                 $Pointer = 3;
                 break;
             default:
