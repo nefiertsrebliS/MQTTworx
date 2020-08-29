@@ -46,23 +46,23 @@ class MQTTworxInfo extends IPSModule
 		switch($Topic){
 			case "bt.t":
 				$this->RegisterVariableFloat('WRX_bt_t', $this->Translate('Battery-Temperature'), '~Temperature', 16);
-				SetValue($this->GetIDForIdent('WRX_bt_t'), $Payload);
+				$this->SetValue('WRX_bt_t', $Payload);
 				break;
 			case "bt.v":
 				$this->RegisterVariableFloat('WRX_bt_v', $this->Translate('Battery-Voltage'), '~Volt', 14);
-				SetValue($this->GetIDForIdent('WRX_bt_v'), $Payload);
+				$this->SetValue('WRX_bt_v', $Payload);
 				break;
 			case "bt.p":
 				$this->RegisterVariableInteger('WRX_bt_p', $this->Translate('Battery-Load'), '~Intensity.100', 12);
-				SetValue($this->GetIDForIdent('WRX_bt_p'), $Payload);
+				$this->SetValue('WRX_bt_p', $Payload);
 				break;
 			case "bt.nr":
 				$this->RegisterVariableFloat('WRX_bt_nr', $this->Translate('Battery-Loadcycles'), '', 18);
-				SetValue($this->GetIDForIdent('WRX_bt_nr'), $Payload);
+				$this->SetValue('WRX_bt_nr', $Payload);
 				break;
 			case "bt.c":
 				$this->RegisterVariableBoolean('WRX_bt_c', $this->Translate('Battery-Charging'), '~Switch', 10);
-				SetValue($this->GetIDForIdent('WRX_bt_c'), $Payload);
+				$this->SetValue('WRX_bt_c', $Payload);
 				break;
 			case "le":
 				if (!IPS_VariableProfileExists('Error.WRX')) {
@@ -85,7 +85,7 @@ class MQTTworxInfo extends IPSModule
 					IPS_SetVariableProfileAssociation("Error.WRX", 17, $this->Translate('BATTERY OVERTEMP'), "", -1);
 				};
 				$this->RegisterVariableInteger('WRX_Error', $this->Translate('Error'), 'Error.WRX', 2);
-				SetValue($this->GetIDForIdent('WRX_Error'), $Payload);
+				$this->SetValue('WRX_Error', $Payload);
 				break;
 			case "ls":
 				if (!IPS_VariableProfileExists('Status.WRX')) {
@@ -110,7 +110,7 @@ class MQTTworxInfo extends IPSModule
 					IPS_SetVariableProfileAssociation("Status.WRX", 34, $this->Translate('PAUSE'), "", -1);
 				};
 				$this->RegisterVariableInteger('WRX_Status', $this->Translate('Status'), 'Status.WRX', 1);
-				SetValue($this->GetIDForIdent('WRX_Status'), $Payload);
+				$this->SetValue('WRX_Status', $Payload);
 				break;
 			case "st.b":
 				if (!IPS_VariableProfileExists('min.WRX')) {
@@ -119,7 +119,7 @@ class MQTTworxInfo extends IPSModule
 					IPS_SetVariableProfileText('min.WRX', '', ' min');
 				}
 				$this->RegisterVariableInteger('WRX_st_b', $this->Translate('Mowing Time'), 'min.WRX', 100);
-				SetValue($this->GetIDForIdent('WRX_st_b'), $Payload);
+				$this->SetValue('WRX_st_b', $Payload);
 				break;
 			case "st.wt":
 				if (!IPS_VariableProfileExists('min.WRX')) {
@@ -128,7 +128,7 @@ class MQTTworxInfo extends IPSModule
 					IPS_SetVariableProfileText('min.WRX', '', ' min');
 				}
 				$this->RegisterVariableInteger('WRX_st_wt', $this->Translate('Working Time'), 'min.WRX', 110);
-				SetValue($this->GetIDForIdent('WRX_st_wt'), $Payload);
+				$this->SetValue('WRX_st_wt', $Payload);
 				break;
 			case "st.d":
 				if (!IPS_VariableProfileExists('Distance.WRX')) {
@@ -137,7 +137,7 @@ class MQTTworxInfo extends IPSModule
 					IPS_SetVariableProfileText('Distance.WRX', '', ' m');
 				}
 				$this->RegisterVariableInteger('WRX_st_d', $this->Translate('Distance'), 'Distance.WRX', 120);
-				SetValue($this->GetIDForIdent('WRX_st_d'), $Payload);
+				$this->SetValue('WRX_st_d', $Payload);
 				break;
 			case "dmp":
 				if (!IPS_VariableProfileExists('Angle.WRX')) {
@@ -147,11 +147,11 @@ class MQTTworxInfo extends IPSModule
 					IPS_SetVariableProfileValues('Angle.WRX', 0, 359, 0);
 				}
 				$this->RegisterVariableInteger('WRX_dmp_0', $this->Translate('Gradient'), 'Angle.WRX', 160);
-				SetValue($this->GetIDForIdent('WRX_dmp_0'), round($Payload[0]));
+				$this->SetValue('WRX_dmp_0', round($Payload[0]));
 				$this->RegisterVariableInteger('WRX_dmp_1', $this->Translate('Inclination'), 'Angle.WRX', 161);
-				SetValue($this->GetIDForIdent('WRX_dmp_1'), round($Payload[1]));
+				$this->SetValue('WRX_dmp_1', round($Payload[1]));
 				$this->RegisterVariableInteger('WRX_dmp_2', $this->Translate('Direction'), 'Angle.WRX', 162);
-				SetValue($this->GetIDForIdent('WRX_dmp_2'), round($Payload[2]));
+				$this->SetValue('WRX_dmp_2', round($Payload[2]));
 				break;
 			case "rsi":
 				if (!IPS_VariableProfileExists('Intensity.dB.WRX')) {
@@ -160,19 +160,28 @@ class MQTTworxInfo extends IPSModule
 					IPS_SetVariableProfileText('Intensity.dB.WRX', '', ' dB');
 				}
 				$this->RegisterVariableInteger('WRX_RSSI', 'RSSI', 'Intensity.dB.WRX', 200);
-				SetValue($this->GetIDForIdent('WRX_RSSI'), $Payload);
+				$this->SetValue('WRX_RSSI', $Payload);
 				break;
 			case "lk":
 				$this->RegisterVariableBoolean('WRX_Lock', $this->Translate('Lock'), '~Lock', 210);
-				SetValue($this->GetIDForIdent('WRX_Lock'), $Payload);
+				$this->SetValue('WRX_Lock', $Payload);
 				break;
 			case "fw":
 				$this->RegisterVariableFloat('WRX_Firmware', 'Firmware', '', 220);
-				SetValue($this->GetIDForIdent('WRX_Firmware'), $Payload);
+				$this->SetValue('WRX_Firmware', $Payload);
 				break;
 			case "mac":
 				$this->RegisterVariableString('WRX_mac', $this->Translate('MAC-Adress'), '', 230);
-				SetValue($this->GetIDForIdent('WRX_mac'), $Payload);
+				$this->SetValue('WRX_mac', $Payload);
+				break;
+			case "rain":
+				if (!IPS_VariableProfileExists('min.WRX')) {
+					IPS_CreateVariableProfile('min.WRX', 1);
+					IPS_SetVariableProfileIcon('min.WRX', 'Clock');
+					IPS_SetVariableProfileText('min.WRX', '', ' min');
+				}
+				$this->RegisterVariableInteger('WRX_rain_cnt', $this->Translate('remaining Raindelay'), 'min.WRX', 3);
+				$this->SetValue('WRX_rain_cnt', $Payload->cnt);
 				break;
 
 			default:

@@ -103,7 +103,7 @@ class MQTTworxZones extends IPSModule
 				}
 
 				$this->EnableAction('WRX_StartingZone');
-				SetValue($this->GetIDForIdent('WRX_StartingZone'), $Payload[$next]+1);
+				$this->SetValue('WRX_StartingZone', $Payload[$next]+1);
 
 
 				break;

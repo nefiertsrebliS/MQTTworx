@@ -16,6 +16,7 @@
       "Direction": "Richtung",
       "Distance": "Fahrstrecke",
       "Lock": "Sperre",
+      "remaining Raindelay": "verbleibende Regenverzögerung",
       "Command": "Befehl",
 	  "NONE": "keine",
       "TRAPPED": "gefangen",

@@ -91,6 +91,9 @@ class MQTTworxGateway extends IPSModule
 			if (property_exists($Payload->dat, 'lz')){
 				$this->sendDataToDevices('Zones', 'lz', $Payload->dat->lz);
 			}
+			if (property_exists($Payload->dat, 'rain')){
+				$this->sendDataToDevices('Infos', 'rain', $Payload->dat->rain);
+			}
 		}
 
 		if (property_exists($Payload, 'cfg')) {

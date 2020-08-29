@@ -74,7 +74,7 @@ class MQTTworxScheduler extends IPSModule
 					IPS_SetVariableProfileValues('TimeExtension.WRX', -100, 100, 10);
 				}
 				$this->RegisterVariableInteger('WRX_TimeExtension', $this->Translate('Time Extension'), 'TimeExtension.WRX', 10);
-				SetValue($this->GetIDForIdent('WRX_TimeExtension'), $Payload);
+				$this->SetValue('WRX_TimeExtension', $Payload);
 				$this->EnableAction('WRX_TimeExtension');
 				break;
 
@@ -87,7 +87,7 @@ class MQTTworxScheduler extends IPSModule
 				}
 				$this->RegisterVariableInteger('WRX_Raindelay', $this->Translate('Raindelay'), 'Raindelay.WRX', 20);
 				$this->EnableAction('WRX_Raindelay');
-				SetValue($this->GetIDForIdent('WRX_Raindelay'), $Payload);
+				$this->SetValue('WRX_Raindelay', $Payload);
 				break;
 
 			case "m":
@@ -102,7 +102,7 @@ class MQTTworxScheduler extends IPSModule
 				$this->RegisterVariableInteger('WRX_Partymode', $this->Translate('Party-Mode'), 'Partymode.WRX', 0);
 				$this->RegisterMessage ($this->GetIDForIdent("WRX_Partymode"), VM_UPDATE);
 				$this->EnableAction('WRX_Partymode');
-				SetValue($this->GetIDForIdent('WRX_Partymode'), $Payload);
+				$this->SetValue('WRX_Partymode', $Payload);
 				break;
 
 			case "distm":
@@ -115,7 +115,7 @@ class MQTTworxScheduler extends IPSModule
 				$this->RegisterVariableInteger('WRX_Partyduration', $this->Translate('Party-Duration'), 'Partyduration.WRX', 0);
 				$this->RegisterMessage ($this->GetIDForIdent("WRX_Partyduration"), VM_UPDATE);
 				$this->EnableAction('WRX_Partyduration');
-				SetValue($this->GetIDForIdent('WRX_Partyduration'), ($Payload > 7)?round($Payload/15)*15 : $Payload);
+				$this->SetValue('WRX_Partyduration', ($Payload > 7)?round($Payload/15)*15 : $Payload);
 				break;
 
 			case "cmd":
@@ -129,7 +129,7 @@ class MQTTworxScheduler extends IPSModule
 					IPS_SetVariableProfileValues('Command.WRX', 0, 3, 1);
 				}
 				$this->RegisterVariableInteger('WRX_Command', $this->Translate('Command'), 'Command.WRX', 0);
-				SetValue($this->GetIDForIdent('WRX_Command'), $Payload);
+				$this->SetValue('WRX_Command', $Payload);
 				$this->EnableAction('WRX_Command');
 				break;
 
