@@ -58,6 +58,10 @@
 		<td>Neu: Kompatibilitätsmodus für ältere Modelle/Firmware<br>
 			Neu: Winkel-Informationen</td>
 	  </tr>
+	  <tr>
+		<td>V3.02 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Fix: WRX_SetSchedule für 2. Zeitbereich</td>
+	  </tr>
 	</table>
   </body>
 </html>

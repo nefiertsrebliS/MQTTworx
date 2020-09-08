@@ -347,7 +347,7 @@ class MQTTworxScheduler extends IPSModule
 #================================================================================================
 	{
 		if($pos == 1)$this->sendJson('{ "sc": { "d": '.$value.' } }');
-		if($pos == 2)$this->sendJson('{ "sc": { "dd": '.$value.' } }');
+		if($pos == 2)$this->sendJson('{ "sc": { "d": [] , "dd": '.$value.' } }');
 		if($pos <> 1 && $pos <> 2)$this->SendDebug('SetSchedule', 'Position not defined: ' . $pos, 0); 
     }
 		
