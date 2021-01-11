@@ -1,6 +1,11 @@
 {
   "translations": {
     "de": {
+		"Mower": "Mähroboter",
+		"Mower is offline (It is recommended to deactivate the MQTT-Landroid-Bridge during the winter break)": "Mähroboter ist offline (Es wird empfohlen, die MQTT-Landroid-Bridge während der Winterpause zu deaktivieren)",
+		"Wrong topic or MQTT-Landroid-Bridge is offline": "Falsches Topic oder MQTT-Landroid-Bridge ist offline",
+		"Forwarding rejected. Mower is offline": "Weiterleitung abgelehnt, Mähroboter ist offline",
+		"Forwarding rejected. MQTT-Landroid-Bridge is offline": "Weiterleitung abgelehnt, MQTT-Landroid-Bridge ist offline"
     }
   }
 }

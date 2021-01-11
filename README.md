@@ -8,11 +8,9 @@
   <body>
 	<h1>IPS-Modul zur Einbindung von Worx-Landroid-Mährobotern in IP-Symcon via Landroid-Bridge</h1>
 	<h2>Grundsätzliches</h2>
-	Das Modul regelt die Kommunikation zwischen der <a href="https://github.com/nefiertsrebliS/landroid-bridge">Landroid-Bridge</a> und IP-Symcon.<br>
-	Die Landroid-Bridge stellt die Verbindung zur WorxCloud her. <b>Die Funktion der Landroid-Bridge kann nur sichergestellt werden, solange Worx die Cloud-Schnittstelle nicht verändert.</b><br>
-	<b>Ab der Version V3.00 ist die Landroid-Bridge in der Version V1.01 erforderlich!</b>
-	<h2>Lizenz</h2>
-	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>
+	Das Modul regelt die Kommunikation zwischen der <a href="https://github.com/nefiertsrebliS/mqtt-landroid-bridge">MQTT-Landroid-Bridge</a> und IP-Symcon.<br>
+	Die MQTT-Landroid-Bridge stellt die Verbindung zur WorxCloud her. <b>Die Funktion der MQTT-Landroid-Bridge kann nur sichergestellt werden, solange Worx die Cloud-Schnittstelle nicht verändert.</b><br>
+	<b>Ab der Version V3.02 wird die bisherige Landroid-Bridge nicht mehr unterstützt! BITTE DIE BISHERIGE <a href="https://github.com/nefiertsrebliS/landroid-bridge">LANDROID-BRIDGE</a> DURCH DIE  <a href="https://github.com/nefiertsrebliS/mqtt-landroid-bridge">MQTT-LANDROID-BRIDGE</a> ERSETZEN!</b>
 	<h2>Changelog</h2>
 	<table>
 	  <tr>
@@ -61,6 +59,11 @@
 	  <tr>
 		<td>V3.02 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Fix: WRX_SetSchedule für 2. Zeitbereich</td>
+	  </tr>
+	  <tr>
+		<td>V3.03 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Neu: vollständige Unterstützung der neuen <a href="https://github.com/nefiertsrebliS/mqtt-landroid-bridge">MQTT-Landroid-Bridge</a><br>
+			Neu: online-Kontrolle für Mäher und Bridge</td>
 	  </tr>
 	</table>
   </body>

@@ -5,5 +5,15 @@
 	],
     "status":
     [
+        {
+            "code": 104,
+            "icon": "inactive",
+            "caption": "Mower is offline (It is recommended to deactivate the MQTT-Landroid-Bridge during the winter break)"
+        },
+        {
+            "code": 202,
+            "icon": "error",
+            "caption": "Wrong topic or MQTT-Landroid-Bridge is offline"
+        }
 	]
 }

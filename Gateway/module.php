@@ -14,6 +14,18 @@ class MQTTworxGateway extends IPSModule
         $this->RegisterPropertyString('Topic', "");
 
 		$this->ConnectParent('{C6D2AEB3-6E1F-4B2E-8E69-3A1A00246850}');
+
+
+		$this->RegisterTimer('ServerStatus', 90000, 'IPS_RequestAction($_IPS["TARGET"], "ServerStatus",0);');
+
+		if (!IPS_VariableProfileExists('Online.WRX')) {
+			IPS_CreateVariableProfile('Online.WRX', 0);
+			IPS_SetVariableProfileAssociation("Online.WRX", true, 'online', "", -1);
+			IPS_SetVariableProfileAssociation("Online.WRX", false, 'offline', "", -1);
+		};
+		$this->RegisterVariableBoolean('WRX_bridge', 'MQTT-Bridge', 'Online.WRX', 0);
+		$this->RegisterVariableBoolean('WRX_mower', $this->Translate('Mower'), 'Online.WRX', 0);
+
     }
 
     public function ApplyChanges()
@@ -38,6 +50,14 @@ class MQTTworxGateway extends IPSModule
 #----------------------------------------------------------------
 
 	    $Payload = json_decode($data->Payload);
+		$this->SetTimerInterval("ServerStatus", 90000);
+		$this->SetValue('WRX_bridge', true);
+
+		if (property_exists($Payload, 'online')) {
+			$this->SetStatus(($Payload->online)?102:104);
+			$this->SetValue('WRX_mower', $Payload->online);
+		}
+
 		if (property_exists($Payload, 'dat')) {
 			if (property_exists($Payload->dat, 'fw')){
 				$this->sendDataToDevices('Infos', 'fw', $Payload->dat->fw);
@@ -135,9 +155,15 @@ class MQTTworxGateway extends IPSModule
 		// Empfangene Daten von der Device Instanz
 		$this->SendDebug("ForwardData", $JSONString, 0);
 		$data = json_decode($JSONString);
-		$this->SendDebug($data->Topic, $data->Payload, 0);
-		$this->sendMQTT($data->Topic, $data->Payload, 0);
-	 
+		if($this->GetStatus() == 201){
+			$this->SendDebug("ForwardData", $this->Translate("Forwarding rejected. Mower is offline"), 0);
+			$this->LogMessage('[ID: '.$this->InstanceID.'] '.$this->Translate("Forwarding rejected. Mower is offline")." - ".$data->Payload, KL_ERROR);
+		}elseif($this->GetStatus() == 202){
+			$this->SendDebug("ForwardData", $this->Translate("Forwarding rejected. MQTT-Landroid-Bridge is offline"), 0);
+			$this->LogMessage('[ID: '.$this->InstanceID.'] '.$this->Translate("Forwarding rejected. MQTT-Landroid-Bridge is offline")." - ".$data->Payload, KL_ERROR);
+		}else{
+			$this->sendMQTT($data->Topic, $data->Payload, 0);
+		}
 	}
 
 #================================================================================================
@@ -169,4 +195,20 @@ class MQTTworxGateway extends IPSModule
 		$this->SendDebug("Sended", $DataJSON, 0);
 	    $this->SendDataToParent($DataJSON);
     }
+
+#================================================================================================
+    public function RequestAction($Ident, $Value)
+#================================================================================================
+	{
+		switch ($Ident) {
+	        case 'ServerStatus':
+				$this->SetStatus(202);
+				$this->SetValue('WRX_bridge', false);
+				$this->SetValue('WRX_mower', false);
+				break;
+	        default:
+				$this->SendDebug('Request Action', 'Action "'.$Ident.'" not defined: ', 0);
+				break;
+		}
+	}
 }
