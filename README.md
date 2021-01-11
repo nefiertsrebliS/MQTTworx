@@ -10,7 +10,7 @@
 	<h2>Grundsätzliches</h2>
 	Das Modul regelt die Kommunikation zwischen der <a href="https://github.com/nefiertsrebliS/mqtt-landroid-bridge">MQTT-Landroid-Bridge</a> und IP-Symcon.<br>
 	Die MQTT-Landroid-Bridge stellt die Verbindung zur WorxCloud her. <b>Die Funktion der MQTT-Landroid-Bridge kann nur sichergestellt werden, solange Worx die Cloud-Schnittstelle nicht verändert.</b><br>
-	<b>Ab der Version V3.02 wird die bisherige Landroid-Bridge nicht mehr unterstützt! BITTE DIE BISHERIGE <a href="https://github.com/nefiertsrebliS/landroid-bridge">LANDROID-BRIDGE</a> DURCH DIE  <a href="https://github.com/nefiertsrebliS/mqtt-landroid-bridge">MQTT-LANDROID-BRIDGE</a> ERSETZEN!</b>
+	<b>Ab der Version V3.03 wird die bisherige Landroid-Bridge nicht mehr unterstützt! BITTE DIE BISHERIGE <a href="https://github.com/nefiertsrebliS/landroid-bridge">LANDROID-BRIDGE</a> DURCH DIE  <a href="https://github.com/nefiertsrebliS/mqtt-landroid-bridge">MQTT-LANDROID-BRIDGE</a> ERSETZEN!</b>
 	<h2>Changelog</h2>
 	<table>
 	  <tr>
