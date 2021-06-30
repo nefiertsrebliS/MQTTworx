@@ -65,6 +65,10 @@
 		<td>Neu: vollständige Unterstützung der neuen <a href="https://github.com/nefiertsrebliS/mqtt-landroid-bridge">MQTT-Landroid-Bridge</a><br>
 			Neu: online-Kontrolle für Mäher und Bridge</td>
 	  </tr>
+	  <tr>
+		<td>V3.04 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Fix: Fehlermeldung Scheduler unter Symcon V6</td>
+	  </tr>
 	</table>
   </body>
 </html>

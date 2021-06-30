@@ -55,10 +55,17 @@ class MQTTworxScheduler extends IPSModule
 					IPS_SetPosition($id, 1);
 					IPS_SetIdent($id, "WRX_Scheduler");
 					IPS_SetEventActive($id, true);
-					IPS_SetEventScheduleAction($id, 1, "Pause", 0x000000, "");
-					IPS_SetEventScheduleAction($id, 2, "Mähen", 0x00FF00, "");
-					IPS_SetEventScheduleAction($id, 3, "Mähen+Kante", 0xFFCC00, "");
+					IPS_SetEventScheduleAction($id, 1, "Pause", 0x000000, "return;");
+					IPS_SetEventScheduleAction($id, 2, "Mähen", 0x00FF00, "return;");
+					IPS_SetEventScheduleAction($id, 3, "Mähen+Kante", 0xFFCC00, "return;");
 				}
+				$id = $this->GetIDForIdent("WRX_Scheduler");
+				foreach(IPS_GetEvent($id)["ScheduleActions"] as $action){
+					if(json_encode($action["ActionParameters"]) != '{"SCRIPT":"return;"}'){
+						IPS_SetEventScheduleAction($id, $action["ID"], $action["Name"], $action["Color"], "return;");
+					}
+				}
+				
 				$this->RegisterMessage ($this->GetIDForIdent("WRX_Scheduler"), EM_REMOVESCHEDULEGROUPPOINT);
 
 				$this->ClearIPSSchedule();
