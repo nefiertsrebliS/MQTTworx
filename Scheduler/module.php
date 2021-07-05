@@ -61,8 +61,10 @@ class MQTTworxScheduler extends IPSModule
 				}
 				$id = $this->GetIDForIdent("WRX_Scheduler");
 				foreach(IPS_GetEvent($id)["ScheduleActions"] as $action){
-					if(json_encode($action["ActionParameters"]) != '{"SCRIPT":"return;"}'){
-						IPS_SetEventScheduleAction($id, $action["ID"], $action["Name"], $action["Color"], "return;");
+					if(isset($action["ActionParameters"])){
+						if(json_encode($action["ActionParameters"]) != '{"SCRIPT":"return;"}'){
+							IPS_SetEventScheduleAction($id, $action["ID"], $action["Name"], $action["Color"], "return;");
+						}
 					}
 				}
 				
