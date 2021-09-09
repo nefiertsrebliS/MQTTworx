@@ -5,9 +5,7 @@
 	"vendor": "MQTT Worx Landroid",
 	"aliases": 
 	[
-		"Worx Landroid Scheduler",
-		"MQTT Worx Scheduler",
-		"MQTT Landroid Scheduler"
+		"Scheduler"
 	],
 	"parentRequirements": ["{6C4F48B9-C1E4-049F-193B-A0A56D2B855E}"],
 	"childRequirements": [],

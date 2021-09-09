@@ -6,7 +6,7 @@
   </head>
 
   <body>
-	<h1>Worx-Landroid-Zones</h1>
+	<h1>Zones</h1>
 	<h2>Konfiguration</h2>
 	Es ist keine Konfiguration erforderlich.
 	<h2>Funktion</h2>

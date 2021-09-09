@@ -69,6 +69,10 @@
 		<td>V3.04 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Fix: Fehlermeldung Scheduler unter Symcon V6</td>
 	  </tr>
+	  <tr>
+		<td>V3.05 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Neu: Experteneinstellungen (Autolock, Drehmoment)</td>
+	  </tr>
 	</table>
   </body>
 </html>

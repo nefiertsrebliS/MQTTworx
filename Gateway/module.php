@@ -145,6 +145,49 @@ class MQTTworxGateway extends IPSModule
 			if (property_exists($Payload->cfg, 'mzv')){
 				$this->sendDataToDevices('Zones', 'mzv', $Payload->cfg->mzv);
 			}
+			if (property_exists($Payload->cfg, 'tq')){
+				$this->sendDataToDevices('Settings', 'tq', $Payload->cfg->tq);
+			}
+			if (property_exists($Payload->cfg, 'al')){
+				if (property_exists($Payload->cfg->al, 'lvl') && property_exists($Payload->cfg->al, 't')){
+					$this->sendDataToDevices('Settings', 'lvl', $Payload->cfg->al->lvl);
+					$this->sendDataToDevices('Settings', 't', $Payload->cfg->al->t);
+				}
+			}
+		}
+
+		if (property_exists($Payload, 'al')) {
+			if (property_exists($Payload->cfg, 'cmd')){
+				$this->sendDataToDevices('Scheduler', 'cmd', $Payload->cfg->cmd);
+			}
+			if (property_exists($Payload->cfg, 'sc')){
+				if (property_exists($Payload->cfg->sc, 'd') && property_exists($Payload->cfg->sc, 'dd')){
+	 				$this->sendDataToDevices('Scheduler', 'dd', array($Payload->cfg->sc->d,  $Payload->cfg->sc->dd));
+				}elseif (property_exists($Payload->cfg->sc, 'd')){
+					$this->sendDataToDevices('Scheduler', 'd', array($Payload->cfg->sc->d));
+				}
+				if (property_exists($Payload->cfg->sc, 'p')){
+					$this->sendDataToDevices('Scheduler', 'p', $Payload->cfg->sc->p);
+				}
+				if (property_exists($Payload->cfg->sc, 'm')){
+					$this->sendDataToDevices('Scheduler', 'm', $Payload->cfg->sc->m);
+				}
+				if (property_exists($Payload->cfg->sc, 'distm')){
+					$this->sendDataToDevices('Scheduler', 'distm', $Payload->cfg->sc->distm);
+				}
+			}
+			if (property_exists($Payload->cfg, 'rd')){
+				$this->sendDataToDevices('Scheduler', 'rd', $Payload->cfg->rd);
+			}
+			if (property_exists($Payload->cfg, 'mz')){
+				$this->sendDataToDevices('Zones', 'mz', $Payload->cfg->mz);
+			}
+			if (property_exists($Payload->cfg, 'mzv')){
+				$this->sendDataToDevices('Zones', 'mzv', $Payload->cfg->mzv);
+			}
+			if (property_exists($Payload->cfg, 'tq')){
+				$this->sendDataToDevices('Settings', 'tq', $Payload->cfg->tq);
+			}
 		}
 	}
 

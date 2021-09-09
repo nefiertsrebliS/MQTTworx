@@ -1,11 +1,11 @@
 {
-	"id": "{6641C12F-ADE8-E5DF-FE70-211CB2756779}",
-	"name": "MQTTworxInfo",
+	"id": "{A8BC5C81-7E80-94E8-41D7-40C19AC472B0}",
+	"name": "MQTTworxSettings",
 	"type": 3,
 	"vendor": "MQTT Worx Landroid",
 	"aliases": 
 	[
-		"Information"
+		"Advanced Settings"
 	],
 	"parentRequirements": ["{6C4F48B9-C1E4-049F-193B-A0A56D2B855E}"],
 	"childRequirements": [],

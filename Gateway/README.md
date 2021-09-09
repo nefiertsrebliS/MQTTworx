@@ -6,7 +6,7 @@
   </head>
 
   <body>
-	<h1>Worx-Landroid-Gateway</h1>
+	<h1>Gateway</h1>
 	<h2>Installation</h2>
 	Das Gateway wird im Objektbaum unter "Splitter Instanzen" installiert. Es regelt die Kommunikation zwischen dem MQTT-Server und den einzelnen Instanzen. Ohne Gateway ist eine Nutzung der Bibliothek nicht möglich.
 	<h2>Konfiguration</h2>

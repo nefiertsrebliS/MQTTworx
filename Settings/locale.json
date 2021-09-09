@@ -1,0 +1,10 @@
+{
+  "translations": {
+    "de": {
+      "Lock": "Sperre",
+      "Autolock": "Autolock",
+      "Autolock-Delay": "Autolock-Verzögerung",
+      "Torque Adjustment": "Drehmomentanpassung"
+    }
+  }
+}
