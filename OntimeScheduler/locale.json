@@ -1,0 +1,10 @@
+{
+  "translations": {
+    "de": {
+      "Start": "Starten",
+      "Task": "Aufgabe",
+      "Bordercut": "Kantenschnitt",
+      "Mowduration": "Mähdauer"
+    }
+  }
+}

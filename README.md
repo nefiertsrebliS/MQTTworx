@@ -73,6 +73,10 @@
 		<td>V3.05 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Neu: Experteneinstellungen (Autolock, Drehmoment)</td>
 	  </tr>
+	  <tr>
+		<td>V3.06 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Neu: Einmalige Aufgaben (Kantenschnitt, Mähen)</td>
+	  </tr>
 	</table>
   </body>
 </html>
