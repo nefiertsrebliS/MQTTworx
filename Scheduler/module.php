@@ -291,15 +291,17 @@ class MQTTworxScheduler extends IPSModule
         foreach(json_decode($Payload) as $Day => $Times){
             $Day = ($Day == 0)?6:$Day-1;
             $Start = explode(":", $Times[0]);
-            if($Times[2] == 0){
-                if((int)$Start[0] + (int)$Start[1] > 0)IPS_SetEventScheduleGroupPoint($ID, $Day, 2**$Position, $Start[0], $Start[1], 0, 2);
-            }else{
-                if((int)$Start[0] + (int)$Start[1] > 0)IPS_SetEventScheduleGroupPoint($ID, $Day, 2**$Position, $Start[0], $Start[1], 0, 3);
-            }
-            $End = $Start[0]*60 + $Start[1] + $Times[1];
-            $EndHour = floor($End/60);
-            $EndMin  = $End - $EndHour*60;
-            if((int)$Start[0] + (int)$Start[1] > 0)IPS_SetEventScheduleGroupPoint($ID, $Day, 2**$Position + 1, $EndHour, $EndMin, 0, 1);
+            if($Times[1] > 0){
+				if($Times[2] == 0){
+					if((int)$Start[0] + (int)$Start[1] > 0)IPS_SetEventScheduleGroupPoint($ID, $Day, 2**$Position, $Start[0], $Start[1], 0, 2);
+				}else{
+					if((int)$Start[0] + (int)$Start[1] > 0)IPS_SetEventScheduleGroupPoint($ID, $Day, 2**$Position, $Start[0], $Start[1], 0, 3);
+				}
+				$End = $Start[0]*60 + $Start[1] + $Times[1];
+				$EndHour = floor($End/60);
+				$EndMin  = $End - $EndHour*60;
+				if((int)$Start[0] + (int)$Start[1] > 0)IPS_SetEventScheduleGroupPoint($ID, $Day, 2**$Position + 1, $EndHour, $EndMin, 0, 1);
+			}
         }
     }
 

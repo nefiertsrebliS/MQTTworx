@@ -77,6 +77,10 @@
 		<td>V3.06 &nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>Neu: Einmalige Aufgaben (Kantenschnitt, Mähen)</td>
 	  </tr>
+	  <tr>
+		<td>V3.07 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>Fix: Scheduler - Point hat denselben Start wie PointIDx</td>
+	  </tr>
 	</table>
   </body>
 </html>
